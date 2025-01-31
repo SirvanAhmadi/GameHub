@@ -2,3 +2,11 @@
     color: #A1A1AA; /* Change this to your desired placeholder color */
     opacity: 1; /* Ensure the color is fully visible */
 }
+
+:root{
+    --card-color:#1F2937;
+    --header-color:#111827;
+    --my-pink:#A855F7;
+    --background-color: #030712;
+    --special-gray:#5D5F69;
+}

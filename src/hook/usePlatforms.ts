@@ -1,19 +1,19 @@
 import APIClient from "@/services/apiClient";
-import { Genre } from "@/types/Genre";
+import { Platform } from "@/types/Platform";
 import { useQuery } from "@tanstack/react-query";
 
 
 
 
-const apiClient = new APIClient<Genre>("/genres")
+const apiClient = new APIClient<Platform>("/platforms")
 
-const useGenres = () => (
+const usePlatforms = () => (
     useQuery({
-        queryKey:["genres"],
+        queryKey:["platforms"],
         queryFn: apiClient.getAll,
         staleTime: 1000 * 60 * 60 * 24 * 7 // 7days
     })
 );
 
 
-export default useGenres;
+export default usePlatforms;
