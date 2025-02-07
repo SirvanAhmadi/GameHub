@@ -1,19 +1,50 @@
 import useGames from "@/hook/useGames";
-import { Box, GridItem, HStack, SimpleGrid, Span, Text } from "@chakra-ui/react";
+import {
+  Box,
+  GridItem,
+  HStack,
+  SimpleGrid,
+  Span,
+  Text,
+} from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import GameGridSkeleton from "./skeletons/GameGridSkeleton";
-import PlatformFilter from "./PlatformFilter";
+import MySelect from "./MySelect";
 import { ImEqualizer } from "react-icons/im";
-
+import usePlatforms from "@/hook/usePlatforms";
+import { useState } from "react";
 
 interface Props {
   selectedGenreId: number | null;
+  searchGames: string;
 }
 
-const GameGrid = ({ selectedGenreId }: Props) => {
-  const { data, hasNextPage, fetchNextPage, isPending } =
-    useGames(selectedGenreId);
+const GameGrid = ({ selectedGenreId, searchGames }: Props) => {
+  const [selectedPlatformId, setSelectedPlatformId] = useState<string | null>(
+    null
+  );
+  const [orderBy, setSelectedOrderBy] = useState<string | null>(null);
+  const { data, hasNextPage, fetchNextPage, isPending } = useGames(
+    selectedGenreId,
+    selectedPlatformId,
+    orderBy,
+    searchGames
+  );
+
+  console.log(selectedPlatformId);
+
+  // alias,
+  const { data: platforms } = usePlatforms();
+  const platformFilters =
+    platforms?.results.map((platform) => ({
+      label: platform.name,
+      value: platform.id,
+    })) || [];
+  const orderFilter = [
+    { label: "Most Recent", value: "-released" },
+    { label: "Oldest", value: "released" },
+  ];
 
   if (isPending) {
     return <GameGridSkeleton />;
@@ -30,16 +61,30 @@ const GameGrid = ({ selectedGenreId }: Props) => {
       dataLength={fetchedGamesLenght}
     >
       <Box padding={5}>
-            <HStack width={"60%"}>
-              <Text display={"flex"} gap={1} alignItems={"center"} >
-              <Span color={"var(--my-pink)"} fontSize={20}>
-                <ImEqualizer />
-              </Span>
-              Filters:
-              </Text>
-              <PlatformFilter />   
-              <PlatformFilter />   
-            </HStack>       
+        <HStack width={"60%"}>
+          <Text display={"flex"} gap={1} alignItems={"center"}>
+            <Span color={"var(--my-pink)"} fontSize={20}>
+              <ImEqualizer />
+            </Span>
+            Filters:
+          </Text>
+          <MySelect
+            onSelectChange={(value) => {
+              setSelectedPlatformId(value as string);
+            }}
+            seletedValue={selectedPlatformId}
+            placeholder="Select Platform"
+            data={platformFilters}
+          />
+          <MySelect
+            seletedValue={orderBy}
+            onSelectChange={(value) => {
+              setSelectedOrderBy(value as string);
+            }}
+            placeholder="Order By"
+            data={orderFilter}
+          />
+        </HStack>
       </Box>
       <SimpleGrid padding={5} columns={{ base: 1, md: 2, lg: 3 }} gap={5}>
         {data?.pages.map((page) =>

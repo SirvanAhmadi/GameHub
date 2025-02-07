@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 
-const apiClient = new APIClient<Platform>("/platforms")
+const apiClient = new APIClient<Platform>("/platforms/lists/parents")
 
 const usePlatforms = () => (
     useQuery({
