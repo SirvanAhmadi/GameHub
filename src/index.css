@@ -3,6 +3,10 @@
     opacity: 1; /* Ensure the color is fully visible */
 }
 
+body{
+    font-family:"Roboto";
+}
+
 :root{
     --card-color:#1F2937;
     --header-color:#111827;

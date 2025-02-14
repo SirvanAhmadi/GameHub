@@ -6,10 +6,10 @@ import {
     FaLinux,
     FaAndroid,
     FaApple,
-    FaRegQuestionCircle 
+    FaNeos 
   } from "react-icons/fa";
   import { MdPhoneIphone } from "react-icons/md";
-  import { SiNintendo } from "react-icons/si";
+  import { SiNintendo,SiD3Dotjs,SiSega,SiAtari ,SiCommodore    } from "react-icons/si";
   import { BsGlobe } from "react-icons/bs";
   import { IconType } from "react-icons";
   import { Box, Badge, Flex } from "@chakra-ui/react";
@@ -31,6 +31,11 @@ const PlatformIconList = ({platforms}:Props) => {
         android: FaAndroid,
         ios: MdPhoneIphone,
         web: BsGlobe,
+        "neo-geo":FaNeos,
+        "3do":SiD3Dotjs ,
+        sega:SiSega ,
+        atari:SiAtari,
+        commodore:SiCommodore 
       };
 
   return (

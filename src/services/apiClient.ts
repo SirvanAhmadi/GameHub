@@ -20,13 +20,15 @@ class APIClient<T> {
         this.endpoint = endpoint
     }
 
-    get = (id:number) => {
-        this
-        return axiosInstance.get<T>(this.endpoint + "/" + id).then(res => res.data)
+    get = (id:number | string,optionalSegment = "") => {
+        return axiosInstance.get<T>(this.endpoint + "/" + id + optionalSegment).then(res => res.data)
     }
 
-    getAll = (configObj:AxiosRequestConfig) => {
-        return axiosInstance.get<ApiResponse<T[]>>(this.endpoint,configObj).then(res => res.data)
+    getAll = (configObj:AxiosRequestConfig,optionalSegment = "",id = "") => {
+        if (id){
+            id = `/${id}`
+        }
+        return axiosInstance.get<ApiResponse<T[]>>(this.endpoint + id + optionalSegment,configObj).then(res => res.data)
     }
 }
 

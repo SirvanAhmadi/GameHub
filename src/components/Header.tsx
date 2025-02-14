@@ -3,12 +3,13 @@ import { LuTowerControl } from "react-icons/lu";
 import { InputGroup } from "./ui/input-group";
 import { FaSearch } from "react-icons/fa";
 import { ColorModeButton } from "./ui/color-mode";
+import useGameQueryStore from "@/store";
 
-interface Props {
-  onSearchInput: (value: string) => void;
-}
 
-const Header = ({ onSearchInput }: Props) => {
+const Header = () => {
+
+  const setSearchGames = useGameQueryStore((state) => state.setSearchGames)
+
   return (
     <Box py={4} as={"header"} bgColor={"#111827"} display={"flex"}>
       <Box width={"20%"} paddingLeft={3} display={"flex"} alignItems={"center"}>
@@ -24,7 +25,7 @@ const Header = ({ onSearchInput }: Props) => {
           <Input
             border={0}
             onChange={(event) => {
-              onSearchInput(event.target.value);
+              setSearchGames(event.target.value)
             }}
             bgColor={"#1F2937"}
             rounded={"full"}

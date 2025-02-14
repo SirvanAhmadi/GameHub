@@ -13,18 +13,17 @@ import GameGridSkeleton from "./skeletons/GameGridSkeleton";
 import MySelect from "./MySelect";
 import { ImEqualizer } from "react-icons/im";
 import usePlatforms from "@/hook/usePlatforms";
-import { useState } from "react";
+import useGameQueryStore from "@/store";
 
-interface Props {
-  selectedGenreId: number | null;
-  searchGames: string;
-}
 
-const GameGrid = ({ selectedGenreId, searchGames }: Props) => {
-  const [selectedPlatformId, setSelectedPlatformId] = useState<string | null>(
-    null
-  );
-  const [orderBy, setSelectedOrderBy] = useState<string | null>(null);
+
+const GameGrid = () => {
+
+  const {selectedGenreId,searchGames,orderBy,selectedPlatformId} = useGameQueryStore();
+
+  const setOrderBy = useGameQueryStore((state) => state.setOrderBy)
+  const setSelectedPlatformId = useGameQueryStore((state) => state.setSelectedPlatformId)
+
   const { data, hasNextPage, fetchNextPage, isPending } = useGames(
     selectedGenreId,
     selectedPlatformId,
@@ -32,9 +31,8 @@ const GameGrid = ({ selectedGenreId, searchGames }: Props) => {
     searchGames
   );
 
-  console.log(selectedPlatformId);
 
-  // alias,
+
   const { data: platforms } = usePlatforms();
   const platformFilters =
     platforms?.results.map((platform) => ({
@@ -70,7 +68,7 @@ const GameGrid = ({ selectedGenreId, searchGames }: Props) => {
           </Text>
           <MySelect
             onSelectChange={(value) => {
-              setSelectedPlatformId(value as string);
+              setSelectedPlatformId(value as string)
             }}
             seletedValue={selectedPlatformId}
             placeholder="Select Platform"
@@ -79,7 +77,7 @@ const GameGrid = ({ selectedGenreId, searchGames }: Props) => {
           <MySelect
             seletedValue={orderBy}
             onSelectChange={(value) => {
-              setSelectedOrderBy(value as string);
+              setOrderBy(value as string)
             }}
             placeholder="Order By"
             data={orderFilter}

@@ -6,6 +6,7 @@ import { IconType } from "react-icons";
 import { LuClock } from "react-icons/lu";
 import { IoCalendarNumber  } from "react-icons/io5";
 import PlatformIconList from "./PlatformIconList";
+import { Link } from "react-router";
 
 
 
@@ -16,7 +17,7 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   const isSinglePlayer = game.tags.find((tag) => tag.id === 31);
   const isMultiPlayer = game.tags.find((tag) => tag.id === 7);
-  let mode = "";
+  let mode = "Not Defined";
 
   // object -> key:mode , value: icon
   const iconMapper:{[key:string] : IconType} = {
@@ -34,7 +35,8 @@ const GameCard = ({ game }: Props) => {
   }
 
   return (
-    <Card.Root bgColor={"var(--card-color)"} overflow="hidden">
+    <Link to={game.slug}>
+      <Card.Root bgColor={"var(--card-color)"} overflow="hidden">
       <Image
         src={game.background_image}
         alt={game.name}
@@ -52,7 +54,7 @@ const GameCard = ({ game }: Props) => {
           ))}
         </Card.Description>
         <Text mt={2} display={"flex"} alignItems={"center"} gap={1} color={"var(--special-gray)"}>
-            <Icon as={iconMapper[mode]}  />
+            {iconMapper[mode] && <Icon as={iconMapper[mode]}  />}
             {mode}
         </Text>
         <Text display={"flex"} alignItems={"center"} gap={1} color={"var(--special-gray)"}>
@@ -68,6 +70,7 @@ const GameCard = ({ game }: Props) => {
         <PlatformIconList platforms={game.parent_platforms.map(obj => obj.platform)}  />
       </Card.Footer>
     </Card.Root>
+    </Link>
   );
 };
 

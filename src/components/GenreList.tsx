@@ -1,17 +1,15 @@
 import useGenres from "@/hook/useGenres";
-import { Box, Button, HStack, Image, Text, VStack} from "@chakra-ui/react";
+import { Box, Button, Image, Text, VStack} from "@chakra-ui/react";
 import GenreListSkeleton from "./skeletons/GenreListSkeleton";
 import { RiSignalWifiErrorFill } from "react-icons/ri";
 import { MdOutlineCategory } from "react-icons/md";
 
+import useGameQueryStore from "@/store";
 
-interface Props {
-  selectedGenreId:number | null;
-  onGenreClick: (genreId:number | null) => void;
-}
 
-const GenreList = ({selectedGenreId,onGenreClick}:Props) => {
-  
+const GenreList = () => {
+  const selectedGenreId = useGameQueryStore((state) => state.selectedGenreId)
+  const setSelectedGenreId = useGameQueryStore((state) => state.setSelectedGenreId)
   const { data, isPending, isError } = useGenres();
 
   if (isPending) {
@@ -27,7 +25,7 @@ const GenreList = ({selectedGenreId,onGenreClick}:Props) => {
       <Box cursor={"pointer"}
           gap={2}
           onClick={() => {
-            onGenreClick(null)
+            setSelectedGenreId(null)
           }}
           color={"white"}
           mt={2}
@@ -46,7 +44,7 @@ const GenreList = ({selectedGenreId,onGenreClick}:Props) => {
           cursor={"pointer"}
           gap={2}
           onClick={() => {
-            onGenreClick(genre.id)
+            setSelectedGenreId(genre.id)
           }}
           color={"white"}
           mt={2}
