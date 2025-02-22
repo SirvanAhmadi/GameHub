@@ -13,6 +13,7 @@ const GameDetailPage = () => {
    const {data:screenshots} = useData("/games","/screenshots",gameSlug,'multi')
     
    
+   
 
   return (
     <SimpleGrid bgColor={"var(--card-color)"} columns={{md:2}} as="main">
@@ -38,11 +39,11 @@ const GameDetailPage = () => {
         <GridItem>
             <Image src={data?.background_image} height={"300p"} />
         </GridItem>
-        <GridItem colSpan={2}>
-            {screenshots && screenshots.map(screenshot => (
-                <Image src={screenshot.image}  />
+            {screenshots && screenshots.results.map(screenshot => (
+                <GridItem>
+                    <Image src={screenshot.image}  />
+                </GridItem>
             ))}
-        </GridItem>
     </SimpleGrid>
   )
 }
