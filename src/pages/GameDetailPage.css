@@ -1,0 +1,80 @@
+.game-detail-slider {
+    margin-top: 50px; /* افزایش فاصله از بالا */
+}
+
+.game-detail-slider .slick-slide img {
+    margin: auto;
+    max-height: 300px;
+    width: auto;
+    object-fit: contain;
+}
+
+.game-detail-slider .slick-dots {
+    bottom: 25px;
+    display: flex !important;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.game-detail-slider .slick-dots li {
+    margin: 0 6px;
+}
+
+.game-detail-slider .slick-dots button {
+    background: #ddd;
+    border-radius: 50%;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 12px;
+    opacity: 0.7;
+    padding: 0;
+    width: 12px;
+}
+
+.game-detail-slider .slick-dots li.slick-active button {
+    background: #333;
+    opacity: 0.9;
+}
+
+.game-detail-slider .slick-prev,
+.game-detail-slider .slick-next {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    opacity: 0.75;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    z-index: 1;
+}
+
+.game-detail-slider .slick-prev {
+    left: 10px;
+}
+
+.game-detail-slider .slick-next {
+    right: 10px;
+}
+
+.game-detail-slider .slick-prev:before,
+.game-detail-slider .slick-next:before {
+    color: white;
+    font-size: 20px;
+}
+
+.game-detail-slider .slick-prev:hover,
+.game-detail-slider .slick-next:hover {
+    opacity: 1;
+}
+
+.game-detail-header {
+    border-bottom: 1px solid #666;
+    padding-bottom: 55px;
+}
